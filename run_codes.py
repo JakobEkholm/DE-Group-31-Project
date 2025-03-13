@@ -57,7 +57,7 @@ def execute_spark(size, mem, cores):
 
 
 if __name__ == "__main__":
-    i = 0
+  for i in range(0, 5):
     for size in data_size:
         start_worker(i)
         csv_file_name = f"Reddit{size}_Workers{i+1}_performance.csv"
