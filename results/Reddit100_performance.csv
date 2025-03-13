@@ -1,0 +1,4 @@
+Executor Memory (GB),Cores 2,Cores 3,Cores 4
+4g,123.49 seconds,86.67 seconds,57.58 seconds
+5g,75.39 seconds,74.63 seconds,56.90 seconds
+6g,71.95 seconds,59.87 seconds,57.85 seconds

@@ -3,21 +3,27 @@ from pyspark.sql.functions import col, lower, udf
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 import json
 import logging
+import argparse
+
+parse = argparse.ArgumentParser()
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+parse.add_argument("--data_size", help="Input data size", type=str, default="50")
+args = parse.parse_args()
+if args.data_size=="all":
+    reddit_path = "hdfs://192.168.2.156:9000/data/reddit/corpus-webis-tldr-17.json"
+else:
+    reddit_path = "hdfs://192.168.2.156:9000/data/reddit/reddit_" + args.data_size + "k.json"
 spark = SparkSession.builder \
-    .appName("RedditDataProcessing") \
     .master("spark://192.168.2.39:7077") \
-    .config("spark.shuffle.service.enabled", True)\
-    .config("spark.executor.instances", 4) \
-    .config("spark.executor.memory", "4g") \
-    .config("spark.executor.cores", 4) \
     .getOrCreate()
 
 spark.sparkContext.setLogLevel("ERROR")
 # files path
-reddit_path = "hdfs://192.168.2.156:9000/data/reddit/reddit_50k.json"
+
 celebrities_path = "hdfs://192.168.2.156:9000/output/group31/Formatted_Celebrities.csv"
 
 # read data
